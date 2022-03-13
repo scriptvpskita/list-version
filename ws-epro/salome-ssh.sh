@@ -1,7 +1,11 @@
 #!/bin/bash
 
-wget 
+cd /usr/bin
+wget https://raw.githubusercontent.com/scriptvpskita/list-version/main/ws-epro/ws-epro
+chmod +x /usr/bin/ws-epro
+cd
 
+cat > /etc/systemd/system/salomessh.service << END 
 [Unit]
 Description=ws-epro
 
@@ -15,3 +19,8 @@ Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
+END
+
+systemctl daemon-reload
+systemctl enable salomessh.service
+systemctl start salomessh.service
